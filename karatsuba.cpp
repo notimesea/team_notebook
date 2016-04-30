@@ -22,7 +22,7 @@ struct karatsuba {
     }
     T* multiply(const T* a, const T* b, size_t n) {
         assert(!(n & (n - 1)));
-        if (n <= 16) {
+        if (n <= 32) {
             T * cur = allocate(2 * n);
             for (int i = 0; i < n; ++i) {
                 for (int j = 0; j < n; ++j) {
@@ -34,21 +34,20 @@ struct karatsuba {
 
         const size_t n2 = n / 2;
         T* res = allocate(2 * n);
+
+        T* l = multiply(a, b, n2);
+        T* r = multiply(a + n2, b + n2, n2);
+
         T* la = copyOf(n2, a);
-        T* ra = copyOf(n2, a + n2);
         T* lb = copyOf(n2, b);
-        T* rb = copyOf(n2, b + n2);
-        T* l = multiply(la, lb, n2);
-        T* r = multiply(ra, rb, n2);
+        for (int i = 0; i < n2; ++i) la[i] += a[i + n2];
+        for (int i = 0; i < n2; ++i) lb[i] += b[i + n2];
 
-        for (int i = 0; i < n2; ++i) la[i] += ra[i];
-        for (int i = 0; i < n2; ++i) lb[i] += rb[i];
-
-        T * m = multiply(la, lb, n2);
+        T* m = multiply(la, lb, n2);
         for (int i = 0; i < n; ++i) res[i] += l[i];
         for (int i = 0; i < n; ++i) res[i + n] += r[i];
         for (int i = 0; i < n; ++i) res[i + n2] += m[i] - l[i] - r[i];
-        clear(5 * n);
+        clear(4 * n);
         return res;
     }
 };
@@ -68,6 +67,7 @@ void testSpeed() {
     }
     T* c = k.multiply(a, b, N);
     k.clear(N + N + 2*N);
+    assert(k.pos == k.buffer);
     double end = clock();
     printf("Elapsed time: %f\n", 1.0 * (end - start) / CLOCKS_PER_SEC); //1.4 on mac
 }
@@ -93,6 +93,7 @@ void testQuality() {
         assert(c[i] == d[i]);
     }
     k.clear(N + N + 2*N + 2*N);
+    assert(k.pos == k.buffer);
     double end = clock();
     printf("Elapsed time: %f\n", 1.0 * (end - start) / CLOCKS_PER_SEC);
 }
