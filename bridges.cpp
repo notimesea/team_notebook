@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef vector<int> vi;
-typedef pair<int, int> pii;
-typedef vector<pii> vpi;
 
 const int maxn = 100500;
 int n, m, tin[maxn], timer = 0, fup[maxn], ans[maxn], numComps = 0;
