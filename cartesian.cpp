@@ -147,6 +147,17 @@ void testCartesian() {
 		}
 	}	
 }
+
+void split_implicit(pitem t, pitem & l, pitem & r, int key) {
+	if (!t)
+		return void( l = r = 0 );
+	if (q(t->l) <= key)
+		split_implicit(t->l, l, t->l, key),  r = t;
+	else
+		split_implicit(t->r, t->r, r, key - 1 - q(t->l)),  l = t;
+	upd(t);
+}
+
 // tested here hackerearth.com/april-circuits/algorithm/circ-bear-and-leaderboard-1/
 int main() {
     testCartesian();
