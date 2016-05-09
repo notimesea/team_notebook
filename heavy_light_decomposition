@@ -1,4 +1,4 @@
-truct Hld {
+struct Hld {
     vector <int> path;
     vector <vector <int> > g;
     vector <int> position;
