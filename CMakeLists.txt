@@ -32,3 +32,6 @@ add_executable(fft fft.cpp)
 add_executable(hungarian hungarian.cpp)
 
 add_executable(planarity_test planarity_test.cpp)
+
+add_executable(convex_hull convex_hull.cpp)
+
