@@ -30,3 +30,5 @@ add_executable(suffix_automaton_arr suffix_automaton_arr.cpp)
 add_executable(fft fft.cpp)
 
 add_executable(hungarian hungarian.cpp)
+
+add_executable(planarity_test planarity_test.cpp)
