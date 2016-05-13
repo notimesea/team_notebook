@@ -23,7 +23,7 @@ struct point {
         return rot(cos(ang), sin(ang));
     }
     T sqlen() const {
-        return abs(x * x + y * y);
+        return std::abs(x * x + y * y);
     }
     long double len() const {
         return sqrtl(sqlen());

@@ -5,75 +5,20 @@
 #include <iomanip>
 #include <cmath>
 #include <cstdio>
-//#include "point.h"
+#include "point.h"
 
-#ifndef TEAM_NOTEBOOK_INNOPOLIS_U_POINT_H
-#define TEAM_NOTEBOOK_INNOPOLIS_U_POINT_H
-
-
-template <class T>
-struct point {
-    T x, y;
-    point() : x(), y() {}
-    point(T x, T y) : x(x), y(y) {}
-    point operator + (const point &r) const {
-        return point(x + r.x, y + r.y);
-    }
-    point operator - (const point &r) const {
-        return point(x - r.x, y - r.y);
-    }
-    point operator * (const T &r) const {
-        return point(x * r, y * r);
-    }
-    point rot(T co, T si) const {
-        return point(x * co - y * si, x * si + y * co);
-    }
-    point rot(T ang) const {
-        return rot(cos(ang), sin(ang));
-    }
-    T sqlen() const {
-        return abs(x * x + y * y);
-    }
-    long double len() const {
-        return sqrtl(sqlen());
-    }
-};
-
-template <class T>
-T dot(const point<T> &l, const point<T> &r) {
-    return l.x * r.x + l.y * r.y;
-}
-
-template <class T>
-T cross(const point<T> &l, const point<T> &r) {
-    return l.x * r.y - l.y * r.x;
-}
-
-typedef point<int> pti;
-typedef point<long long> ptl;
-typedef point<double> ptd;
-typedef point<long double> ptld;
-
-
-#endif //TEAM_NOTEBOOK_INNOPOLIS_U_POINT_H
-
+const double eps = 1e-9;
 using namespace std;
 
-const long double eps = 1e-10;
+typedef ptd pt;
 
-typedef ptld pt;
-
-int sgn(const long double &a) {
+int sgn(const double &a) {
     if (a > eps)
         return 1;
     else if (a < -eps)
         return -1;
     else
         return 0;
-}
-
-pt rotate(const pt &p) {
-    return pt(-p.y, p.x);
 }
 
 struct halfPlane {
@@ -90,7 +35,7 @@ struct halfPlane {
     bool operator<(const halfPlane &rhs) const {
         if (type() != rhs.type())
             return type() < rhs.type();
-        long double cr = cross(dir, rhs.dir);
+        double cr = cross(dir, rhs.dir);
         if (sgn(cr) != 0) {
             return sgn(cr) < 0;
         }
@@ -100,7 +45,7 @@ struct halfPlane {
     bool operator==(const halfPlane &rhs) const {
         if (type() != rhs.type())
             return false;
-        long double cr = cross(dir, rhs.dir);
+        double cr = cross(dir, rhs.dir);
         return sgn(cr) == 0;
     }
 
@@ -110,9 +55,9 @@ struct halfPlane {
 };
 
 pt getIntersection(const halfPlane &lhs, const halfPlane &rhs) {
-    long double u = cross(lhs.a - rhs.a, rhs.dir);
-    long double v = cross(lhs.dir, rhs.dir);
-    long double t = -u / v;
+    double u = cross(lhs.a - rhs.a, rhs.dir);
+    double v = cross(lhs.dir, rhs.dir);
+    double t = -u / v;
     return lhs.a + lhs.dir * t;
 }
 
@@ -170,7 +115,7 @@ int main() {
             return 0;
         }
 
-        long double sq = 0;
+        double sq = 0;
 
         pt pts[bot - top];
         sz = 0;
@@ -189,7 +134,7 @@ int main() {
         sq = abs(sq);
         sq /= 2;
         cout << setprecision(1) << fixed;
-        printf("%.1f\n", (double)sq);
+        printf("%.1f\n", sq);
     }
     return 0;
 }
