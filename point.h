@@ -3,41 +3,47 @@
 
 
 template <class T>
-struct pt {
+struct point {
     T x, y;
-    pt() : x(), y() {}
-    pt(T x, T y) : x(x), y(y) {}
-    pt operator + (const pt &r) const {
-        return pt(x + r.x, y + r.y);
+    point() : x(), y() {}
+    point(T x, T y) : x(x), y(y) {}
+    point operator + (const point &r) const {
+        return point(x + r.x, y + r.y);
     }
-    pt operator - (const pt &r) const {
-        return pt(x - r.x, y - r.y);
+    point operator - (const point &r) const {
+        return point(x - r.x, y - r.y);
     }
-    pt operator * (const T &r) const {
-        return pt(x * r, y * r);
+    point operator * (const T &r) const {
+        return point(x * r, y * r);
     }
-    pt rot(T co, T si) const {
-        return pt(x * co - y * si, x * si + y * co);
+    point rot(T co, T si) const {
+        return point(x * co - y * si, x * si + y * co);
     }
-    pt rot(T ang) const {
+    point rot(T ang) const {
         return rot(cos(ang), sin(ang));
+    }
+    T sqlen() const {
+        return abs(x * x + y * y);
+    }
+    long double len() const {
+        return sqrtl(sqlen());
     }
 };
 
 template <class T>
-T dot(const pt<T> &l, const pt<T> &r) {
+T dot(const point<T> &l, const point<T> &r) {
     return l.x * r.x + l.y * r.y;
 }
 
 template <class T>
-T cross(const pt<T> &l, const pt<T> &r) {
+T cross(const point<T> &l, const point<T> &r) {
     return l.x * r.y - l.y * r.x;
 }
 
-typedef pt<int> pti;
-typedef pt<long long> ptl;
-typedef pt<double> ptd;
-typedef pt<long double> ptld;
+typedef point<int> pti;
+typedef point<long long> ptl;
+typedef point<double> ptd;
+typedef point<long double> ptld;
 
 
 #endif //TEAM_NOTEBOOK_INNOPOLIS_U_POINT_H

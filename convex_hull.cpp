@@ -3,18 +3,20 @@
 
 using namespace std;
 
-vector<ptl> convex_hull_strict(vector<ptl> a) {
-    sort(a.begin(), a.end(), [&](const ptl &l, const ptl &r){
+typedef ptl pt;
+
+vector<pt> convex_hull_strict(vector<pt> a) {
+    sort(a.begin(), a.end(), [&](const pt &l, const pt &r){
         if (l.y != r.y) return l.y < r.y;
         return l.x < r.x;
     });
     if (a.size() < 2) return a;
     int n = (int)a.size();
-    ptl p1 = a[0];
-    ptl p2 = a[n - 1];
-    vector<ptl> up(1, p1);
-    vector<ptl> down(1, p1);
-    ptl p21 = p2 - p1;
+    pt p1 = a[0];
+    pt p2 = a[n - 1];
+    vector<pt> up(1, p1);
+    vector<pt> down(1, p1);
+    pt p21 = p2 - p1;
     for (int i = 1; i < n; ++i) {
         if (i == n - 1 || cross(p21, a[i] - p1) > 0) {
             while (up.size() > 1 && cross(up[up.size() - 1] - up[up.size() - 2], a[i] - up[up.size() - 1]) >= 0) {
@@ -41,25 +43,25 @@ vector<ptl> convex_hull_strict(vector<ptl> a) {
 }
 
 
-vector<ptl> convex_hull_not_strict(vector<ptl> a) {
-    sort(a.begin(), a.end(), [&](const ptl &l, const ptl &r){
+vector<pt> convex_hull_not_strict(vector<pt> a) {
+    sort(a.begin(), a.end(), [&](const pt &l, const pt &r){
         if (l.x != r.x) return l.x < r.x;
         return l.y < r.y;
     });
     if (a.size() < 2) return a;
     int n = (int)a.size();
-    ptl p1 = a[0];
-    ptl p2 = a[n - 1];
-    ptl p21 = p2 - p1;
+    pt p1 = a[0];
+    pt p2 = a[n - 1];
+    pt p21 = p2 - p1;
     bool is_on_line = true;
-    for (int i = 0; i < a.size(); ++i) {
+    for (int i = 0; i < (int)a.size(); ++i) {
         if (cross(p21, a[i] - p1) != 0) {
             is_on_line = false;
         }
     }
     if (is_on_line) return a;
-    vector<ptl> up(1, p1);
-    vector<ptl> down(1, p1);
+    vector<pt> up(1, p1);
+    vector<pt> down(1, p1);
 
     for (int i = 1; i < n; ++i) {
         if (i == n - 1 || cross(p21, a[i] - p1) >= 0) {
