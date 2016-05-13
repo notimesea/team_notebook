@@ -99,7 +99,7 @@ vector<ll> mulFFT(const vector<ll> &a, const vector<ll> &b) {
     fft(A, n, true);
     vector<ll> c(n);
     for (int i = 0; i < n; ++i) {
-        c[i] = ll(A[i].x + 0.5);
+        c[i] = llround(A[i].x);
     }
     while (!c.empty() && c.back() == 0) {
         c.pop_back();
