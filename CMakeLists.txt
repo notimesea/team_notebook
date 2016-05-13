@@ -10,3 +10,7 @@ add_executable(suffix_array suffix_array.cpp)
 add_executable(maxFlow maxFlow.cpp)
 
 add_executable(minCostFlow minCostFlow.cpp)
+
+add_executable(suffix_automaton_map suffix_automaton_map.cpp)
+
+add_executable(suffix_automaton_arr suffix_automaton_arr.cpp)
