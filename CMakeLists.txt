@@ -7,6 +7,8 @@ add_executable(karatsuba karatsuba.cpp)
 
 add_executable(suffix_array suffix_array.cpp)
 
+add_executable(2chinese 2chinese.cpp)
+
 add_executable(cartesian cartesian.cpp)
 
 add_executable(cut_point cut_point.cpp)
