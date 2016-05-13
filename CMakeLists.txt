@@ -10,3 +10,13 @@ add_executable(suffix_array suffix_array.cpp)
 add_executable(cut_point cut_point.cpp)
 
 add_executable(bridges bridges.cpp)
+
+add_executable(maxFlow maxFlow.cpp)
+
+add_executable(minCostFlow minCostFlow.cpp)
+
+add_executable(suffix_automaton_map suffix_automaton_map.cpp)
+
+add_executable(suffix_automaton_arr suffix_automaton_arr.cpp)
+
+add_executable(fft fft.cpp)
