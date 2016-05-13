@@ -143,6 +143,63 @@ double simpson(T f, double a, double b, int N = 1000 * 1000) {
 	return s;
 }
 
+
+template <class T, class T2>
+bool miller_rabin (T n, T2 b)
+{
+	if (n == 2)
+		return true;
+	if (n < 2 || even (n))
+		return false;
+
+	if (b < 2)
+		b = 2;
+	for (T g; (g = gcd (n, b)) != 1; ++b)
+		if (n > g)
+			return false;
+
+	T n_1 = n;
+	--n_1;
+	T p, q;
+	transform_num (n_1, p, q);
+	T rem = powmod (T(b), q, n);
+	if (rem == 1 || rem == n_1)
+		return true;
+	for (T i=1; i<p; i++)
+	{
+		mulmod (rem, rem, n);
+		if (rem == n_1)
+			return true;
+	}
+	return false;
+}
+
+template <class T>
+T pollard_rho (T n, unsigned iterations_count = 100000)
+{
+	T
+		b0 = rand() % n,
+		b1 = b0,
+		g;
+	mulmod (b1, b1, n);
+	if (++b1 == n)
+		b1 = 0;
+	g = gcd (abs (b1 - b0), n);
+	for (unsigned count=0; count<iterations_count && (g == 1 || g == n); count++)
+	{
+		mulmod (b0, b0, n);
+		if (++b0 == n)
+			b0 = 0;
+		mulmod (b1, b1, n);
+		++b1;
+		mulmod (b1, b1, n);
+		if (++b1 == n)
+			b1 = 0;
+		g = gcd (abs (b1 - b0), n);
+	}
+	return g;
+}
+
 double si(double t) {
 	return sin(t);
 }
