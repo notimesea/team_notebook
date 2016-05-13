@@ -7,6 +7,10 @@ add_executable(karatsuba karatsuba.cpp)
 
 add_executable(suffix_array suffix_array.cpp)
 
+add_executable(cut_point cut_point.cpp)
+
+add_executable(bridges bridges.cpp)
+
 add_executable(maxFlow maxFlow.cpp)
 
 add_executable(minCostFlow minCostFlow.cpp)
